@@ -10,4 +10,17 @@ module.exports = {
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : (process.env['PRIVATE-KEY'] ? [process.env['PRIVATE-KEY']] : []),
     },
   },
+  etherscan: {
+    apiKey: process.env.BASESCAN_API_KEY || "C9CFD5REN63QS5AESUEF3WJ6EPPWJ2UN9R",
+    customChains: [
+      {
+        network: "baseSepolia",
+        chainId: 84532,
+        urls: {
+          apiURL: "https://api-sepolia.basescan.org/api",
+          browserURL: "https://sepolia.basescan.org"
+        }
+      }
+    ]
+  },
 };
