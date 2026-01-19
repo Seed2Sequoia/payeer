@@ -4,6 +4,7 @@ pragma solidity ^0.8.19;
 contract Payeer {
     struct Session {
         address[] participants;
+        string[] taunts;
         uint256 entryFee;
         bool isActive;
         address winner;
@@ -14,7 +15,7 @@ contract Payeer {
     uint256 public nextSessionId;
 
     event SessionCreated(uint256 indexed sessionId, uint256 entryFee, address creator);
-    event ParticipantJoined(uint256 indexed sessionId, address participant);
+    event ParticipantJoined(uint256 indexed sessionId, address participant, string taunt);
     event WinnerSelected(uint256 indexed sessionId, address winner, uint256 prizeAmount);
 
     /**
@@ -37,16 +38,18 @@ contract Payeer {
     /**
      * @dev Joins an active session. Requires sending the exact entry fee.
      * @param _sessionId The ID of the session to join.
+     * @param _taunt A fun message to taunt other players.
      */
-    function joinSession(uint256 _sessionId) public payable {
+    function joinSession(uint256 _sessionId, string memory _taunt) public payable {
         Session storage session = sessions[_sessionId];
         require(session.isActive, "Session is not active");
         require(msg.value == session.entryFee, "Incorrect entry fee");
 
         session.participants.push(msg.sender);
+        session.taunts.push(_taunt);
         session.totalPool += msg.value;
 
-        emit ParticipantJoined(_sessionId, msg.sender);
+        emit ParticipantJoined(_sessionId, msg.sender, _taunt);
     }
 
     /**
@@ -88,6 +91,13 @@ contract Payeer {
      */
     function getParticipants(uint256 _sessionId) public view returns (address[] memory) {
         return sessions[_sessionId].participants;
+    }
+
+    /**
+     * @dev Returns taunts of a specific session.
+     */
+    function getTaunts(uint256 _sessionId) public view returns (string[] memory) {
+        return sessions[_sessionId].taunts;
     }
 
     /**
