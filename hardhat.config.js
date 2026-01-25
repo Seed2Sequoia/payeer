@@ -3,10 +3,14 @@ require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.19",
+  solidity: "0.8.20",
   networks: {
     baseSepolia: {
       url: "https://sepolia.base.org",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : (process.env['PRIVATE-KEY'] ? [process.env['PRIVATE-KEY']] : []),
+    },
+    base: {
+      url: "https://mainnet.base.org",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : (process.env['PRIVATE-KEY'] ? [process.env['PRIVATE-KEY']] : []),
     },
   },
@@ -19,6 +23,14 @@ module.exports = {
         urls: {
           apiURL: "https://api-sepolia.basescan.org/api",
           browserURL: "https://sepolia.basescan.org"
+        }
+      },
+      {
+        network: "base",
+        chainId: 8453,
+        urls: {
+          apiURL: "https://api.basescan.org/api",
+          browserURL: "https://basescan.org"
         }
       }
     ]

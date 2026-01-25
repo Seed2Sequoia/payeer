@@ -1,7 +1,7 @@
 {
   "name": "payeer",
   "version": "1.0.0",
-  "description": "",
+  "description": "A decentralized bill splitting application on Base",
   "main": "index.js",
   "scripts": {
     "compile": "hardhat compile",
@@ -12,15 +12,22 @@
     "type": "git",
     "url": "git+https://github.com/Gbangbolaoluwagbemiga/sequoia.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "base",
+    "ethereum",
+    "solidity",
+    "bill-splitting",
+    "dapp"
+  ],
+  "author": "Payeer Team",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Gbangbolaoluwagbemiga/sequoia/issues"
   },
   "homepage": "https://github.com/Gbangbolaoluwagbemiga/sequoia#readme",
   "dependencies": {
+    "@openzeppelin/contracts": "^5.4.0",
     "dotenv": "^17.2.3"
   },
   "devDependencies": {
